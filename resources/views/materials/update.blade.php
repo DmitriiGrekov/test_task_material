@@ -35,10 +35,9 @@
                         </div>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="floatingSelectCategory" name='category_id'>
-                                <option selected>Выберите категорию</option>
                                 @foreach ($categories as $category)
                                     @if ($material->category_id == $category->id)
-                                        <option selected value="{{$type->id}}">{{$type->name}}</option>
+                                        <option selected value="{{$category->id}}">{{$category->name}}</option>
                                     @else
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endif

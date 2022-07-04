@@ -49,7 +49,7 @@ class MaterialController extends Controller
         return redirect()->route('material.detail', $material->id);
     }
 
-    public function add_tag(Request $req, $id){
+    public function addTag(Request $req, $id){
 
         $material = Material::findOrFail($id);
 
@@ -59,7 +59,7 @@ class MaterialController extends Controller
         return redirect()->back();
     }
 
-    public function delete_tag($id, $tag_id){
+    public function deleteTag($id, $tag_id){
         $tag = Tag::findOrFail($tag_id);
         $material = Material::findOrFail($id);
 
@@ -68,13 +68,13 @@ class MaterialController extends Controller
         return redirect()->back();
     }
 
-    public function create_link($id){
+    public function createLink($id){
 
         return view('materials.create_link', ['id' => $id]);
 
     }
 
-    public function store_link(LinkRequest $req){
+    public function storeLink(LinkRequest $req){
         $material_id = $req->input('material_id');
         $name = $req->input('name');
         $link = $req->input('link');
@@ -89,17 +89,17 @@ class MaterialController extends Controller
 
     }
 
-    public function delete_link($id){
+    public function deleteLink($id){
         $link = Link::findOrFail($id)->delete();
         return redirect()->back();
     }
 
-    public function update_link($material_id, $link_id){
+    public function updateLink($material_id, $link_id){
         $link = Link::findOrFail($link_id);
         return view('materials.update_link', ['id' => $material_id, 'link' => $link]);
     }
 
-    public function update_link_store(LinkRequest $req, $link_id){
+    public function updateLinkStore(LinkRequest $req, $link_id){
         $link = Link::findOrFail($link_id);
         $material_id = $req->input('material_id');
         $name = $req->input('name');
@@ -117,7 +117,7 @@ class MaterialController extends Controller
         return view('materials.delete', ['material'=>$material]);
     }
 
-    public function delete_store(Request $req, $id){
+    public function deleteStore(Request $req, $id){
         Material::findOrFail($id)->delete();
         return redirect()->route('main.index');
     }
@@ -132,7 +132,7 @@ class MaterialController extends Controller
             'categories'=>$categories]);;
     }
 
-    public function update_store(MaterialRequest $req, $id){
+    public function updateStore(MaterialRequest $req, $id){
         $type_id = $req->input('type_id');
         $category_id = $req->input('category_id');
         $name = $req->input('name');
@@ -146,7 +146,9 @@ class MaterialController extends Controller
 
         $material = Material::findOrFail($id);
         $material -> type_id = $type_id;
-        $material -> category_id = $category_id;
+        if(!($material -> category_id == $category_id)){
+            $material -> category_id = $category_id;
+        }
         $material -> name = $name;
         $material -> author = $author;
         $material -> description = $description;

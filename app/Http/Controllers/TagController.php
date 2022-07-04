@@ -33,17 +33,17 @@ class TagController extends Controller
         return view('tags.delete', ['tag'=>$tag]);
     }
 
-    public function delete_store($tag_id){
+    public function deleteStore($tag_id){
         Tag::findOrFail($tag_id)->delete();
         return redirect()->route('tag.index');
     }
 
-    public function tag_update($tag_id){
+    public function tagUpdate($tag_id){
         $tag = Tag::findOrFail($tag_id);
         return view('tags.update', ['tag'=>$tag]);
     }
 
-    public function tag_update_store(TagRequest $req, $tag_id){
+    public function tagUpdateStore(TagRequest $req, $tag_id){
         $name = $req->input('name');
         $tag = Tag::findOrFail($tag_id);
 

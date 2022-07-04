@@ -32,7 +32,7 @@ class TypeController extends Controller
         return view('types.update', ['type' => $type]);
     }
 
-    public function update_store(TypeRequest $req, $id){
+    public function updateStore(TypeRequest $req, $id){
         $type = Type::findOrFail($id);
         $type->name = $req->input('name');
         $type->save();
@@ -44,7 +44,7 @@ class TypeController extends Controller
         return view('types.delete', ['type'=> $type]);
     }
 
-    public function delete_store($id){
+    public function deleteStore($id){
         Type::findOrFail($id)->delete();
         return redirect()->route('type.index');
     }

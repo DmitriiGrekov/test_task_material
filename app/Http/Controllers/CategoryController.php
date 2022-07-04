@@ -31,17 +31,17 @@ class CategoryController extends Controller
         return view('categories.delete', ['category'=>$category]);
     }
 
-    public function delete_store($cat_id){
+    public function deleteStore($cat_id){
         Category::findOrFail($cat_id)->delete();
         return redirect()->route('category.index');
     }
 
-    public function category_update($cat_id){
+    public function categoryUpdate($cat_id){
         $cat = Category::findOrFail($cat_id);
         return view('categories.update', ['category'=>$cat]);
     }
 
-    public function category_update_store(CategoryRequest $req, $cat_id){
+    public function categoryUpdateStore(CategoryRequest $req, $cat_id){
         $name = $req->input('name');
         $cat = Category::findOrFail($cat_id);
 
