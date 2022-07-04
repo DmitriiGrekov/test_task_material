@@ -11,4 +11,10 @@ class MainController extends Controller
         $materials = Material::all();
         return view('main.index', ['materials' => $materials]);
     }
+
+    public function search(Request $req){
+        $search_text = $req->search;
+        $materials = Material::where('name', 'LIKE', "%{$search_text}%")->get();
+        return view('main.index', ['materials'=>$materials]);
+    }
 }

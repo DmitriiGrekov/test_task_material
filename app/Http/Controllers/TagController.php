@@ -22,14 +22,20 @@ class TagController extends Controller
         $name = $req->input('name');
         $tag = new Tag();
         $tag -> name = $name;
+
         $tag -> save();
 
         return redirect()->route('tag.index');
     }
 
     public function delete($tag_id){
+        $tag = Tag::findOrFail($tag_id);
+        return view('tags.delete', ['tag'=>$tag]);
+    }
+
+    public function delete_store($tag_id){
         Tag::findOrFail($tag_id)->delete();
-        return redirect()->back();
+        return redirect()->route('tag.index');
     }
 
     public function tag_update($tag_id){
@@ -45,5 +51,10 @@ class TagController extends Controller
         $tag -> save();
 
         return redirect()->route('tag.index');
+    }
+
+    public function filter($id){
+        $materials = Tag::findOrFail($id)->materials;
+        return view('main.index', ['materials'=>$materials]);
     }
 }

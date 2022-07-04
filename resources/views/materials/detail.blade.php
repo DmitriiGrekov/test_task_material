@@ -53,7 +53,7 @@
                     <ul class="list-group mb-4">
                         @foreach ($material->tags as $tag)
                             <li class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <a href="#" class="me-3">
+                            <a href="{{route('tag.filter', $tag->id)}}" class="me-3">
                                 {{$tag->name}}
                             </a>
                             <a href="{{route('material.delete_tag', ['id'=>$material->id, 'tag_id'=>$tag->id])}}" class="text-decoration-none">

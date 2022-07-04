@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IsUrl;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LinkRequest extends FormRequest
+class TypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,24 +21,20 @@ class LinkRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:100',
-            'link' => ['required', 'min:3', new IsUrl],
-            'material_id' => 'required'
+            'name' => 'required|min:3|max:100'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Заполните имя',
+            'name.required' => "Поле с названием обязательное",
             'name.min' => 'Минимальная длина названия 3 символа',
             'name.max' => 'Максимальная длина названия 100 символов',
-            'link.required' => 'Заполните ссылку',
-            'link.min' => 'Минимальная длина ссылки 3 символа',
-            'link.regex' => 'Введенный текс не является ссылкой'
         ];
     }
 }

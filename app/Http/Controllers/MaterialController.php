@@ -111,4 +111,49 @@ class MaterialController extends Controller
         return redirect()->route('material.detail', $material_id);
 
     }
+
+    public function delete($id){
+        $material = Material::findOrFail($id);
+        return view('materials.delete', ['material'=>$material]);
+    }
+
+    public function delete_store(Request $req, $id){
+        Material::findOrFail($id)->delete();
+        return redirect()->route('main.index');
+    }
+
+    public function update($id){
+        $material = Material::findOrFail($id);
+        $types = Type::all();
+        $categories = Category::all();
+        return view('materials.update', [
+            'material'=>$material,
+            'types'=>$types,
+            'categories'=>$categories]);;
+    }
+
+    public function update_store(MaterialRequest $req, $id){
+        $type_id = $req->input('type_id');
+        $category_id = $req->input('category_id');
+        $name = $req->input('name');
+        $author = $req->input('author');
+        $description = $req->input('description');
+
+
+        if(!is_numeric($type_id) or !is_numeric($category_id)){
+            return redirect()->back()->withErrors(['msg' => 'Выберите занчение'])->withInput();
+        }
+
+        $material = Material::findOrFail($id);
+        $material -> type_id = $type_id;
+        $material -> category_id = $category_id;
+        $material -> name = $name;
+        $material -> author = $author;
+        $material -> description = $description;
+
+        $material -> save();
+        return redirect()->route('material.detail', $material->id);
+
+
+    }
 }
